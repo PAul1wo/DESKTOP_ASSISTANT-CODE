@@ -72,7 +72,7 @@ if __name__ == "__main__":
             cap.release()
             cv2.destroyAllWindows()
 
-        elif "play music " in query: # Play Music
+        elif "play music" in query: # Play Music
             music_dir = "D:\\Musics"
             songs = os.listdir(music_dir)  # music converted into a list
             rd = random.choice(songs)
