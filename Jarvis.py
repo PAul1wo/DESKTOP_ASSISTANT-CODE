@@ -4,17 +4,24 @@ import datetime
 import os
 import cv2
 import random
-from requests import get
+from requests import  get
 import wikipedia
 import webbrowser
-import pywhatkit as kit
+ 
 import smtplib
 import sys
 import time
 import pyjokes
 
+
+import pyautogui
+
+
+
+
+
 engine = pyttsx3.init('sapi5')          #text to voice
-voices = engine.getProperty('voices');
+voices = engine.getProperty('voices')
 # print(voices[0].id)
 engine.setProperty('voices', voices[len(voices) - 1].id)
 
@@ -43,6 +50,19 @@ def takecommand():
         speak("Say that again please...")
         return "none"
     return query
+
+
+
+
+
+
+
+
+def screenshot():
+    pyautogui.keyDown("windows")
+    pyautogui.press("Prtsc")
+    pyautogui.keyUp("windows")
+
 
 
 # to wish
@@ -85,7 +105,9 @@ if __name__ == "__main__":  # main program
         elif 'hi' in query or 'hello' in query:
             speak('Hello sir, how may I help you?')
 
-
+        elif 'take screenshot' in query:
+            screenshot()
+            speak('Screenshot saved in pictures folder')
 
         elif "open command prompt" in query:
             os.system("start cmd")
@@ -97,10 +119,9 @@ if __name__ == "__main__":  # main program
                 cv2.imshow('webcam', img)
                 k = cv2.waitKey(50)
                 if k == 27:
-                    break;
+                    break
             cap.release()
             cv2.destroyAllWindows()
-
 
 
         elif "play music" in query:
@@ -112,6 +133,8 @@ if __name__ == "__main__":  # main program
                 if song.endswith('.mp3'):
                     os.startfile(os.path.join(music_dir, song))
 
+        elif 'take a screenshot' in query:
+            screenshot()
 
 
         elif "ip address" in query:
@@ -121,7 +144,7 @@ if __name__ == "__main__":  # main program
         elif "wikipedia" in query:
             speak("searching wikipedia....")
             query = query.replace("wikipedia", "")
-            results = wikipedia.summary(query, sentences=2)
+            results = wikipedia.summary(query, sentences=2,chars=10, auto_suggest=True, redirect=True)
             speak("according to wikipedia")
             speak(results)
             # print(results)
@@ -140,15 +163,30 @@ if __name__ == "__main__":  # main program
             cm = takecommand().lower()
             webbrowser.open(f"{cm}")
 
+        elif "close Facebook" in query:
+            speak('Closing Facebook Now')
+            os.system("taskkill /f /im chrome.exe")
+
+
+
+        elif "close youtube" in query:
+            speak('Closing youtube Now')
+            os.system("taskkill /f /im chrome.exe")
+
+
+        elif "close google" in query:
+            speak('Closing google Now')
+            os.system("taskkill /f /im chrome.exe")
+
         elif "close notepad" in query:
             speak('closing notepad')
             os.system("taskkill /f /im notepad.exe")
 
-        elif "close cmd" in query:
+        elif "close cmd"  in query:
             speak('closing cmd')
             os.system("taskkill /f /im cmd.exe")
 
-        elif "tell me a joke" in query:
+        elif "tell me a joke" or "can you tell me a joke" or "i want a joke" in query:
             speak('you want the joke , in which language')
             l = takecommand().lower()
             if "english" in l:
@@ -163,10 +201,8 @@ if __name__ == "__main__":  # main program
                 speak(joke)
 
 
-
-
-        elif "song on youtube" in query:
-            kit.playonyt("see you again")
+     #   elif "song on youtube" in query:
+         #   kit.playonyt("see you again")
 
         elif 'timer' in query or 'stopwatch' in query:
             speak("For how many minutes?")
@@ -179,7 +215,8 @@ if __name__ == "__main__":  # main program
             speak(f'I will remind you in {timing} seconds')
 
             time.sleep(timing)
-            speak('Your time has been finished sir')
+            speak(f'Your {timing} has been finished sir')
+
 
         elif "email to avinash" in query:
             try:
@@ -193,8 +230,8 @@ if __name__ == "__main__":  # main program
                 print(e)
                 speak("sorry sir, i am not able to sent this mail to avi")
 
-        elif "Okay you can Quit" in query:
-            speak("thanks for using me sir, have a good day.")
+        elif "you can quit now" in query:
+            speak("thanks for using me , have a good day.")
             sys.exit()
 
-        # speak("sir, do you have any other work")
+        #speak("Can I help with , with something else")
