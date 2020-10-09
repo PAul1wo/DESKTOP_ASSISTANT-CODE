@@ -7,7 +7,7 @@ import random
 from requests import  get
 import wikipedia
 import webbrowser
- 
+
 import smtplib
 import sys
 import time
@@ -167,6 +167,22 @@ if __name__ == "__main__":  # main program
             speak('Closing Facebook Now')
             os.system("taskkill /f /im chrome.exe")
 
+        elif "calculator" or "calulate this for me" in query:
+            speak('what operation you want to do')
+            n = takecommand()
+            if 'addition' or 'add' in n:
+                speak('please , give me the two numbers ')
+                n1 = takecommand()
+                n2 = takecommand()
+                add1 = int(n1) + int(n2)
+                speak(f'your answer is {add1}')
+
+            elif 'substraction' or 'substract' in n:
+                speak('please , give me the two numbers ')
+                n1 = takecommand()
+                n2 = takecommand()
+                sub1 = int(n1) - int(n2)
+                speak(f'the answer is {sub1}')
 
 
         elif "close youtube" in query:
